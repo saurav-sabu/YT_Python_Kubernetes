@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubernetes Test Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <span class="kubernetes-icon">⚙️</span>
+        </div>
+        
+        <h1>Kubernetes Test App</h1>
+        <p class="subtitle">Welcome to our containerized application</p>
+        
+        <form method="POST" id="welcomeForm">
+            <div class="form-group">
+                <label for="name">Enter your name:</label>
+                <input type="text" id="name" name="name" placeholder="Your name here..." required>
+            </div>
+            
+            <button type="submit" class="btn" id="submitBtn">
+                Get Welcome Message
+            </button>
+        </form>
+        
+        {% if message %}
+        <div class="message">
+            {{ message }}
+        </div>
+        {% endif %}
+        
+        <div class="footer">
+            <p>🚀 Powered by Flask & Kubernetes</p>
+        </div>
+    </div>
+
+    <script>
+        // Add loading animation on form submit
+        document.getElementById('welcomeForm').addEventListener('submit', function(e) {
+            const btn = document.getElementById('submitBtn');
+            btn.classList.add('loading');
+            btn.innerHTML = 'Processing...';
+        });
+
+        // Add enter key animation for input
+        document.getElementById('name').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 100);
+            }
+        });
+
+        // Add focus animations
+        document.getElementById('name').addEventListener('focus', function() {
+            this.parentElement.style.transform = 'translateY(-2px)';
+        });
+
+        document.getElementById('name').addEventListener('blur', function() {
+            this.parentElement.style.transform = 'translateY(0)';
+        });
+    </script>
+</body>
+</html>
